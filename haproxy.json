@@ -4,7 +4,7 @@
     "Parameters" : {
         "KeyName" : {
             "Description" : "The EC2 Key Pair to allow SSH access to the instance",
-            "Type" : "String"
+            "Type" : "String",
             "Default": "ditc"
         },
             "InstanceType": {
@@ -260,4 +260,4 @@
 }
  "m2.xlarge" : { "Arch" : "64" }, 
  "m2.2xlarge" : { "Arch" : "64" }, 
- "m2.4xlarge" : { "Arch" : "64" }, 
+ "m2.4xlarge" : { "Arch" : "64" },  
