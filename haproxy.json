@@ -16,12 +16,12 @@
             },
             "ChefServerURL" : {
               "Description" : "URL of Chef Server",
-              "Type": "String"
+              "Type": "String",
               "Default": "https://api.opscode.com/organizations/hosting-non-prod"
             },
             "ChefClientValidator" : {
               "Description" : "client name of the validator pem file",
-              "Type": "String"
+              "Type": "String",
               "Default": "hosting-non-prod-validator"
             },
             "ChefServerPrivateKeyBucket" : {
@@ -31,7 +31,7 @@
             },
             "ChefServerSecurityGroup" : {
               "Description" : "Security group to get access to Opscode Chef Server",
-              "Type": "String"
+              "Type": "String",
               "Default": "ec-web-d"
             }
     },
@@ -260,4 +260,4 @@
 }
  "m2.xlarge" : { "Arch" : "64" }, 
  "m2.2xlarge" : { "Arch" : "64" }, 
- "m2.4xlarge" : { "Arch" : "64" },  
+ "m2.4xlarge" : { "Arch" : "64" }, 
