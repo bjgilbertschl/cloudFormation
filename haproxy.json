@@ -35,7 +35,7 @@
               "Default": "ec-web-d"
             },
               "VpcId" : {
-              "Description" : "VPC for the instances to use",
+              "Description" : "VPC for the instances to use large balls",
               "Type": "String",
               "Default": "vpc-207b7242"
             }
@@ -264,3 +264,10 @@
         {
         }
 }
+
+
+
+
+
+
+
