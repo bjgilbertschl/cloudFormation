@@ -257,7 +257,4 @@
   "Outputs" : 
         {
         }
-}
- "m2.xlarge" : { "Arch" : "64" }, 
- "m2.2xlarge" : { "Arch" : "64" }, 
- "m2.4xlarge" : { "Arch" : "64" }, 
+} 
