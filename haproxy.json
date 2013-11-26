@@ -33,7 +33,13 @@
               "Description" : "Security group to get access to Opscode Chef Server",
               "Type": "String",
               "Default": "ec-web-d"
+            },
+              "VpcId" : {
+              "Description" : "VPC for the instances to use",
+              "Type": "String",
+              "Default": "vpc-207b7242"
             }
+
     },
     
     "Mappings" : {
@@ -183,7 +189,7 @@
       "Properties": {
         "SecurityGroups": [ { "Ref" : "EC2SecurityGroup" }, { "Ref": "ChefServerSecurityGroup" } ],
         "ImageId": { "Fn::FindInMap": [ "AWSRegionArch2AMI", { "Ref": "AWS::Region" }, { "Fn::FindInMap": [ "AWSInstanceType2Arch", { "Ref": "InstanceType" }, "Arch" ] } ]
-        },"VpcId" : "vpc-207b7242",
+        },"VpcId" : { "Ref" : "VpcId" },
         "UserData" : { "Fn::Base64" : { "Fn::Join" : ["", [
             "#!/bin/bash -v\n",
 
