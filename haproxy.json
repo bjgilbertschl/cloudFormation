@@ -183,7 +183,7 @@
       "Properties": {
         "SecurityGroups": [ { "Ref" : "EC2SecurityGroup" }, { "Ref": "ChefServerSecurityGroup" } ],
         "ImageId": { "Fn::FindInMap": [ "AWSRegionArch2AMI", { "Ref": "AWS::Region" }, { "Fn::FindInMap": [ "AWSInstanceType2Arch", { "Ref": "InstanceType" }, "Arch" ] } ]
-        },
+        },"VpcId" : "vpc-207b7242",
         "UserData" : { "Fn::Base64" : { "Fn::Join" : ["", [
             "#!/bin/bash -v\n",
 
@@ -257,4 +257,4 @@
   "Outputs" : 
         {
         }
-} 
+}
