@@ -251,7 +251,7 @@
       "DependsOn" : "ChefClient",
       "Properties" : {
         "Handle"  : { "Ref" : "ChefClientWaitHandle" },
-        "Timeout" : "300"
+        "Timeout" : "1200"
       }
     }
   },
