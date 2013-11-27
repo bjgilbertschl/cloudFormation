@@ -165,7 +165,7 @@
               },
               "/etc/chef/roles.json" : {
                 "content" : {
-                  "run_list": [ "role[wordpress]" ]
+                  "run_list": [ "role[haproxy]" ]
                 },
                 "mode"  : "000644",
                 "owner" : "root",
