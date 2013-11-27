@@ -33,7 +33,7 @@
               "Description" : "Security group to get access to Opscode Chef Server",
               "Type": "String",
               "Default": "ec-testCF-dev"
-            },
+            }
               
 
     },
