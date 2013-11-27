@@ -199,6 +199,7 @@
         },
         "UserData" : { "Fn::Base64" : { "Fn::Join" : ["", [
             "#!/bin/bash -v\n",
+            "log='/tmp/init.log'\n",
 
             "function error_exit\n",
             "{\n",
@@ -206,25 +207,25 @@
             "  exit 1\n",
             "}\n",
 
-            "apt-get -y install python-setuptools\n",
-            "easy_install https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-latest.tar.gz\n",
+            "apt-get -y install python-setuptools &>> $log\n",
+            "easy_install https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-latest.tar.gz &>> $log\n",
             "cfn-init --region ", { "Ref" : "AWS::Region" },
             "    -s ", { "Ref" : "AWS::StackId" }, " -r ChefClient ",
-            "         --region     ", { "Ref" : "AWS::Region" }, " || error_exit 'Failed to run cfn-init'\n",
+            "         --region     ", { "Ref" : "AWS::Region" }, " || error_exit 'Failed to run cfn-init' &>> &log\n",
 
             "# Fixup path and links for the bootstrap script\n",
-            "export PATH=$PATH:/var/lib/gems/1.8/bin\n",
+            "export PATH=$PATH:/var/lib/gems/1.8/bin &>> log\n",
 
             "# Bootstrap chef\n",
-            "chef-solo -c /etc/chef/solo.rb -j /etc/chef/chef.json -r http://s3.amazonaws.com/chef-solo/bootstrap-latest.tar.gz  > /tmp/chef_solo.log 2>&1 || error_exit 'Failed to bootstrap chef client'\n",
+            "chef-solo -c /etc/chef/solo.rb -j /etc/chef/chef.json -r http://s3.amazonaws.com/chef-solo/bootstrap-latest.tar.gz  > /tmp/chef_solo.log 2>&1 || error_exit 'Failed to bootstrap chef client' &>> $log\n",
 
             "# Fixup the server URL in client.rb\n",
-            "s3cmd -c /home/ubuntu/.s3cfg get s3://", { "Ref" : "ChefServerPrivateKeyBucket" }, "/validation.pem /etc/chef/validation.pem > /tmp/get_validation_key.log 2>&1 || error_exit 'Failed to get Chef Server validation key'\n",
-            "sed -i 's|http://localhost:4000|", { "Ref" : "ChefServerURL" }, "|g' /etc/chef/client.rb\n",
-            "chef-client -j /etc/chef/roles.json > /tmp/initialize_client.log 2>&1 || error_exit 'Failed to initialize host via chef client' \n",
+            "s3cmd -c /home/ubuntu/.s3cfg get s3://", { "Ref" : "ChefServerPrivateKeyBucket" }, "/validation.pem /etc/chef/validation.pem > /tmp/get_validation_key.log 2>&1 || error_exit 'Failed to get Chef Server validation key' &>> $log\n",
+            "sed -i 's|http://localhost:4000|", { "Ref" : "ChefServerURL" }, "|g' /etc/chef/client.rb &>> $log\n",
+            "chef-client -j /etc/chef/roles.json > /tmp/initialize_client.log 2>&1 || error_exit 'Failed to initialize host via chef client' &>> $log\n",
 
             "# If all went well, signal success\n",
-            "cfn-signal -e $? -r 'Chef Server configuration' '", { "Ref" : "ChefClientWaitHandle" }, "'\n"
+            "cfn-signal -e $? -r 'Chef Server configuration' '", { "Ref" : "ChefClientWaitHandle" }, "' &>> &log\n"
         ]]}},
         "KeyName": { "Ref": "KeyName" },
         "InstanceType": { "Ref": "InstanceType" }
