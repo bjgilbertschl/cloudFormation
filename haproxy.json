@@ -32,13 +32,9 @@
             "ChefServerSecurityGroup" : {
               "Description" : "Security group to get access to Opscode Chef Server",
               "Type": "String",
-              "Default": "ec-web-d"
+              "Default": "ec-testCF-dev"
             },
-              "VpcId" : {
-              "Description" : "VPC for the instances to use",
-              "Type": "String",
-              "Default": "vpc-207b7242"
-            }
+              
 
     },
     
@@ -187,7 +183,7 @@
       },
 
       "Properties": {
-       
+        "ChefServerSecurityGroup" : [{ "Ref" : "ChefServerSecurityGroup" }],
         "ImageId": { "Fn::FindInMap": [ "AWSRegionArch2AMI", { "Ref": "AWS::Region" }, { "Fn::FindInMap": [ "AWSInstanceType2Arch", { "Ref": "InstanceType" }, "Arch" ] } ]
         },
         "UserData" : { "Fn::Base64" : { "Fn::Join" : ["", [
