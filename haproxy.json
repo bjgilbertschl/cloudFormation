@@ -211,10 +211,10 @@
             "easy_install https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-latest.tar.gz &>> $log\n",
             "cfn-init --region ", { "Ref" : "AWS::Region" },
             "    -s ", { "Ref" : "AWS::StackId" }, " -r ChefClient ",
-            "         --region     ", { "Ref" : "AWS::Region" }, " || error_exit 'Failed to run cfn-init' &>> &log\n",
+            "         --region     ", { "Ref" : "AWS::Region" }, " || error_exit 'Failed to run cfn-init' &>> $log\n",
 
             "# Fixup path and links for the bootstrap script\n",
-            "export PATH=$PATH:/var/lib/gems/1.8/bin &>> log\n",
+            "export PATH=$PATH:/var/lib/gems/1.8/bin &>> $log\n",
 
             "# Bootstrap chef\n",
             "chef-solo -c /etc/chef/solo.rb -j /etc/chef/chef.json -r http://s3.amazonaws.com/chef-solo/bootstrap-latest.tar.gz  > /tmp/chef_solo.log 2>&1 || error_exit 'Failed to bootstrap chef client' &>> $log\n",
